@@ -47,7 +47,7 @@ namespace Json_Test.Controllers
             if (ModelState.IsValid)
             {
                 bool robotOk = false;
-                if (System.Configuration.ConfigurationManager.AppSettings["recaptchaVersion"] == "dufeksoft")
+                if (System.Configuration.ConfigurationManager.AppSettings["recaptchaVersion"] == "brendysoft")
                 {
                     if (!new ApiKeyValidator().IsValid(model.Password, model.ConfirmPassword))
                     {
