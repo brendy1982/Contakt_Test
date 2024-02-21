@@ -1,0 +1,90 @@
+﻿@model Json_Test.Models.Request.RequestSendModel_Sk
+
+@{
+    ViewBag.Title = "Contact";
+}
+<main aria-labelledby="title">
+    <h2 id="title">@ViewBag.Title.</h2>
+    <h3>@ViewBag.Message</h3>
+
+   
+
+
+
+
+    <h2>Napíšte nám</h2>
+    @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "Odoslanie správy bolo neúspešné. Prosím opravte chyby a skúste to znovu.")
+        <div class="form-group">
+            <label class="sr-only" for="Name">Meno</label>
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Meno", tabindex = 1 })
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+        <div class="form-group">
+            <label class="sr-only" for="Email">E-mail</label>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "E-mail", type = "email", tabindex = 2 })
+            @Html.ValidationMessageFor(m => m.Email)
+        </div>
+        <div class="form-group">
+            <label class="sr-only" for="Name">Telefón</label>
+            @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "Telefón", tabindex = 3 })
+            @Html.ValidationMessageFor(m => m.Phone)
+        </div>
+        <div class="form-group">
+            <label class="sr-only" for="Text">Sem napíšte správu</label>
+            @Html.TextAreaFor(m => m.Text, new { @class = "form-control", placeholder = "Sem napíšte správu", style = "height:150px", tabindex = 4 })
+            @Html.ValidationMessageFor(m => m.Text)
+        </div>
+        /*
+        <div class="form-group">
+            <div class="price-info">
+                <label class="sr-only" for="Name">Cena</label>
+                @Html.TextBoxFor(m => m.Price, new { @class = "form-control", placeholder = "Cena ?", tabindex = 5 })
+                @Html.ValidationMessageFor(m => m.Price)
+                <p class="price-info-label">
+                    Chcete vedieť cenu webstránky, eshopu, či iného riešenia?
+                    Napíšte koľko chcete investovať a my vám nájdeme riešenie.
+                </p>
+            </div>
+        </div>
+         */
+        <div class="form-group hidden">
+            <label class="sr-only" for="Email">Captcha</label>
+            @Html.TextBoxFor(m => m.Captcha, new { @class = "form-control", placeholder = "Captcha" })
+        </div>
+        <div class="form-group">
+            @if (System.Configuration.ConfigurationManager.AppSettings["recaptchaVersion"] == "dufeksoft")
+            {
+                <div class="form-group password-group">
+                    @Html.LabelFor(m => m.Password)
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+                <div class="form-group password-group">
+                    @Html.LabelFor(m => m.ConfirmPassword)
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                </div>
+            }
+            else
+            {
+                <div class="recaptcha">
+                    @MvcHtmlString.Create(new Json_Test.Models.GoogleRecaptcha().HtmlBody())
+                </div>
+            }
+            <a href="#" onclick="document.getElementById('submitButton').click(); return false;" class="btn btn-primary btn-lg btn-darker" tabindex="6">Šup s tým k nám</a>
+            <input type="submit" id="submitButton" class="hidden" />
+        </div>
+    }
+
+
+    <br />
+    <br />
+
+
+
+
+    
+</main>
